@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: auth
+  cloud:
+    config:
+      uri: http://localhost:8888
+      fail-fast: true
+      username: nizomiddin
+      password: persistent
+  profiles:
+    #    active: local
+    active: local
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017/spring-cloud

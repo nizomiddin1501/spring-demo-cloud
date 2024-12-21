@@ -1,0 +1,28 @@
+<mxfile host="Electron" modified="2024-11-25T17:18:39.983Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.8.2 Chrome/114.0.5735.289 Electron/25.8.1 Safari/537.36" etag="PtixJC7TN8aUoTjeUrHS" version="21.8.2" type="device">
+  <diagram name="Page-1" id="xZHwsXXL_AQ6OAD7lLIy">
+    <mxGraphModel dx="1228" dy="893" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="1700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="PvQSSEsHZ42OWukGweDq-1" value="Config service" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="860" y="350" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PvQSSEsHZ42OWukGweDq-2" value="Discovery service" style="rounded=0;whiteSpace=wrap;html=1;verticalAlign=bottom;" vertex="1" parent="1">
+          <mxGeometry x="610" y="360" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PvQSSEsHZ42OWukGweDq-3" value="Gateway service" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="530" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PvQSSEsHZ42OWukGweDq-4" value="PayMe Backend" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="380" y="290" width="700" height="510" as="geometry" />
+        </mxCell>
+        <mxCell id="PvQSSEsHZ42OWukGweDq-5" value="Service 1" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="PvQSSEsHZ42OWukGweDq-6" value="Service 2" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="610" y="600" width="120" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
