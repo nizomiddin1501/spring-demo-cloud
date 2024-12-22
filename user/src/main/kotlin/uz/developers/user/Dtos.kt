@@ -69,7 +69,7 @@ data class UserResponse(
     var username: String?,
 
     @Schema(description = "User full name", example = "Nizomiddin Mirzanazarov")
-    var fullName: String,
+    var fullName: String?,
 
     @Schema(description = "Role name for the user", example = "ADMIN")
     var roleName: String?,

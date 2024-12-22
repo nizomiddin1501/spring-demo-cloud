@@ -1,4 +1,5 @@
 package uz.developers.course
+import org.bouncycastle.asn1.x500.style.RFC4519Style.name
 import org.springframework.context.annotation.Lazy
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
@@ -49,7 +50,8 @@ class CourseServiceImpl(
 
     override fun checkAdminRole(userId: Long) {
         val user = userService.getOne(userId) ?: throw UserNotFoundException()
-        if (user.role.name != "ADMIN") {
+        val roleResponse = RoleResponse((user.roleName ?: "UNKNOWN"))
+        if (roleResponse.name != "ADMIN") {
             throw UserAccessDeniedException()
         }
     }

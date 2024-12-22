@@ -60,7 +60,7 @@ class UserController(
         ApiResponse(responseCode = "200", description = "Successfully fetched the user"),
         ApiResponse(responseCode = "404", description = "User not found")
     )
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long) = userService.getOne(id)
 
 

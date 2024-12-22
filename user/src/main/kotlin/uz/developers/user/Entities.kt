@@ -34,7 +34,7 @@ class User(
     var password: String,
 
     @ManyToOne
-    @JoinColumn(name = "role_id", nullable = false)
+    @JoinColumn(name = "role_id")
     @Schema(description = "User role", example = "USER")
     var role: Role,
 
@@ -57,7 +57,7 @@ class User(
 
 @Entity(name = "roles")
 class Role(
-    @Column(unique = true, length = 64, nullable = false)
+    @Column(unique = true, length = 64)
     @Schema(description = "Role key", example = "12")
     var key: String,
 

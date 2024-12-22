@@ -43,13 +43,13 @@ data class UserResponse(
     var username: String?,
 
     @Schema(description = "User full name", example = "Nizomiddin Mirzanazarov")
-    var fullName: String,
+    var fullName: String?,
 
     @Schema(description = "User's password", example = "root123")
     var password: String?,
 
     @Schema(description = "Role name for the user", example = "ADMIN")
-    val role: RoleResponse,
+    val roleName: String?,
 
     @Schema(description = "User status", example = "PENDING")
     @Enumerated(EnumType.STRING)
@@ -82,6 +82,7 @@ data class UserUpdateRequest(
     var balance: BigDecimal
 )
 
+
 @Schema(description = "Data transfer object for Role createRequest")
 class RoleCreateRequest(
 
@@ -96,14 +97,14 @@ class RoleCreateRequest(
 @Schema(description = "Data transfer object for Role createRequest")
 class RoleResponse(
 
-    @Schema(description = "Role ID", example = "1")
-    val id: Long?,
-
-    @Schema(description = "Role key", example = "12")
-    var key: String,
+//    @Schema(description = "Role ID", example = "1")
+//    val id: Long?,
+//
+//    @Schema(description = "Role key", example = "12")
+//    var key: String?,
 
     @Schema(description = "Role name", example = "ADMIN")
-    var name: String,
+    var name: String?,
 )
 
 @Schema(description = "Data transfer object for Role createRequest")
