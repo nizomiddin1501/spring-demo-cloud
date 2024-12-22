@@ -1,0 +1,11 @@
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/spring-cloud
+      auto-index-creation: true
+server:
+  port: 8081
+
+feign.client.config.default:
+  connectTimeout: 10000
+  readTimeout: 30000

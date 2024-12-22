@@ -1,0 +1,43 @@
+server:
+  port: 8080
+spring:
+  servlet:
+    multipart:
+      max-file-size: 200MB
+      max-request-size: 200MB
+zuul:
+  ignoredServices: '*'
+  sensitive-headers: Cookie,Set-Cookie
+  routes:
+    user:
+      path: /api/v1/user/**
+      url: user
+      stripPrefix: true
+    auth:
+      path: /api/v1/auth/**
+      url: auth
+      stripPrefix: true
+    course:
+      path: /api/v1/course/**
+      url: course
+      stripPrefix: true
+    payment:
+      path: /api/v1/payment/**
+      url: payment
+      stripPrefix: true
+    swagger:
+      path: /swagger-ui/**, /v3/api-docs/**
+      url: ${service-names.auth}
+      stripPrefix: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+          timeoutInMilliseconds: 60000
+ribbon:
+  enabled: false
+  ConnectTimeout: 3000
+  ReadTimeout: 60000

@@ -1,0 +1,29 @@
+security:
+  oauth2:
+    client:
+      client-id: 'test'
+      client-secret: 'test'
+      accessTokenUri: ${service-names.auth}/oauth/token
+    resource:
+      user-info-uri: ${service-names.auth}/user/current
+      token-info-uri: ${service-names.auth}/oauth/check_token
+      prefer-token-info: false
+
+service-names:
+  auth: ${AUTH_SERVICE:http://127.0.0.1:8081}
+  user: ${USER_SERVICE:http://localhost:8082}
+  course: ${COURSE_SERVICE:http://localhost:8083}
+  payment: ${PAYMENT_SERVICE:http://localhost:8084}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    oauth2:
+      client-id: 'test'
+      client-secret: 'test'
+      authorization-url: http://localhost:8081/oauth/authorize
+      token-url: http://localhost:8081/oauth/token
+      scopes:
+        - read
+        - write
