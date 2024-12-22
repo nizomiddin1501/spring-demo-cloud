@@ -191,10 +191,10 @@ data class PaymentResponse(
     val id: Long?,
 
     @Schema(description = "User ID", example = "1")
-    var userId: Long,
+    var userId: Long?,
 
     @Schema(description = "Course ID", example = "3")
-    var courseId: Long,
+    var courseId: Long?,
 
     @Schema(description = "Amount paid", example = "150.00")
     var amount: BigDecimal?,
@@ -209,10 +209,10 @@ data class PaymentResponse(
     var status: Status?,
 
     @Schema(description = "User name (retrieved from User service)", example = "John Doe")
-    val userName: String? = null,
+    val userName: String?,
 
     @Schema(description = "Course name (retrieved from Course service)", example = "Kotlin Programming")
-    val courseName: String? = null
+    val courseName: String?
 )
 
 

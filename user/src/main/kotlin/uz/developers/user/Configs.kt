@@ -1,5 +1,6 @@
 package uz.developers.user
 
+import feign.Request
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateFactory
 import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor
 import org.springframework.context.annotation.Bean
@@ -61,6 +62,16 @@ class EntityAuditingConfig {
     @Bean
     fun userIdAuditorAware() =
         AuditorAware<Long> { Optional.ofNullable(SecurityContextHolder.getContext().getUserId()) }
+}
+
+
+@Configuration
+class FeignConfig {
+
+    @Bean
+    fun requestOptions(): Request.Options {
+        return Request.Options(5000, 10000)
+    }
 }
 
 

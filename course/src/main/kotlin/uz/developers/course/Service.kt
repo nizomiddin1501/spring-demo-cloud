@@ -87,14 +87,18 @@ class CourseServiceImpl(
         val userResponse = userService.getOne(userId) ?: throw UserNotFoundException()
         val courseResponse = getOne(courseId) ?: throw CourseNotFoundException()
 
-        val isBalanceDeducted = userService.deductBalance(userId, courseResponse.price!!)
-        if (!isBalanceDeducted) {
+//        val isBalanceDeducted = userService.deductBalance(userId, courseResponse.price!!)
+//        if (!isBalanceDeducted) {
+//            throw InsufficientBalanceException()
+//        }
+        val userBalance = userService.getUserBalance(userId)
+        if (userBalance<courseResponse.price) {
             throw InsufficientBalanceException()
         }
         val paymentCreateRequest = PaymentCreateRequest(
             userId = userId,
             courseId = courseId,
-            amount = courseResponse.price,
+            amount = courseResponse.price!!,
             paymentDate = LocalDateTime.now(),
             paymentMethod = PaymentMethod.CREDIT_CARD,
             status = Status.SUCCESS

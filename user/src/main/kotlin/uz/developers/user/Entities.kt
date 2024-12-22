@@ -51,6 +51,7 @@ class User(
     @Enumerated(EnumType.STRING)
     var status: UserStatus = UserStatus.PENDING,
 
+    @Column(nullable = false)
     @Schema(description = "User balance", example = "100.0")
     var balance: BigDecimal
 ) : BaseEntity()

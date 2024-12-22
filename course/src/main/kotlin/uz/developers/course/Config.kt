@@ -18,6 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import org.springframework.web.servlet.i18n.SessionLocaleResolver
+import feign.Request
 import java.util.*
 
 
@@ -63,6 +64,15 @@ class EntityAuditingConfig {
 }
 
 @Configuration
+class FeignConfig {
+
+    @Bean
+    fun requestOptions(): Request.Options {
+        return Request.Options(5000, 10000)
+    }
+}
+
+@Configuration
 class WebMvcConfig : WebMvcConfigurer {
     @Bean
     fun localeResolver() = SessionLocaleResolver().apply { setDefaultLocale(Locale("uz")) }
@@ -73,3 +83,6 @@ class WebMvcConfig : WebMvcConfigurer {
         setBasename("error")
     }
 }
+
+
+
