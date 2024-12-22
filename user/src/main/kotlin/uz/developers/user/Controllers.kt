@@ -67,8 +67,7 @@ class UserController(
     @Operation(summary = "Create new user", description = "Creates a new user record.")
     @ApiResponses(
         ApiResponse(responseCode = "201", description = "User successfully created"),
-        ApiResponse(responseCode = "400", description = "Invalid request data")
-    )
+        ApiResponse(responseCode = "400", description = "Invalid request data"))
     @PostMapping
     fun create(@RequestBody @Valid request: UserCreateRequest) = userService.create(request)
 
@@ -80,15 +79,15 @@ class UserController(
         ApiResponse(responseCode = "400", description = "Invalid request data")
     )
     @PutMapping("{id}")
-    fun update(@PathVariable id: Long, @RequestBody @Valid request: UserUpdateRequest) = userService.update(id, request)
+    fun update(@PathVariable id: Long,
+               @RequestBody @Valid request: UserUpdateRequest) = userService.update(id, request)
 
 
     @Operation(summary = "Get user balance",description = "Fetches the balance of the user with the given ID.")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Successfully fetched user balance"),
-        ApiResponse(responseCode = "404", description = "User not found")
-    )
-    @GetMapping("/{id}/balance")
+        ApiResponse(responseCode = "404", description = "User not found"))
+    @GetMapping("/balance/{id}")
     fun getUserBalance(@PathVariable id: Long): BigDecimal {
         return userService.getUserBalance(id)
     }
@@ -100,32 +99,29 @@ class UserController(
         ApiResponse(responseCode = "400", description = "Insufficient balance or invalid amount"),
         ApiResponse(responseCode = "404", description = "User not found")
     )
-    @PostMapping("/{id}/deduct")
+    @PostMapping("/deduct/{id}")
     fun deductBalance(
         @PathVariable id: Long,
-        @RequestParam amount: BigDecimal
-    ): Boolean {
+        @RequestParam amount: BigDecimal): Boolean {
         return userService.deductBalance(id, amount)
     }
+
 
     @Operation(summary = "Add amount to user balance", description = "Adds the specified amount to the user's balance.")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Balance successfully updated"),
         ApiResponse(responseCode = "400", description = "Invalid request data"),
-        ApiResponse(responseCode = "404", description = "User not found")
-    )
-    @PutMapping("/{id}/balance")
+        ApiResponse(responseCode = "404", description = "User not found"))
+    @PutMapping("/balance/{id}")
     fun fillBalance(
         @PathVariable id: Long,
-        @RequestParam("amount") amount: BigDecimal
-    ): BigDecimal {
+        @RequestParam("amount") amount: BigDecimal): BigDecimal {
         return userService.fillBalance(id, amount)
     }
 
     @Operation(summary = "Get user statistics",description = "Fetches statistics about all users.")
     @ApiResponses(
-        ApiResponse(responseCode = "200", description = "Successfully fetched user statistics")
-    )
+        ApiResponse(responseCode = "200", description = "Successfully fetched user statistics"))
     @GetMapping("/stats")
     fun getUserStats(): UserStatsResponse {
         return userService.getUserStats()

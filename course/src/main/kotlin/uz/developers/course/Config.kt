@@ -1,5 +1,4 @@
-package uz.developers.user
-
+package uz.developers.course
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoRestTemplateFactory
 import org.springframework.cloud.security.oauth2.client.feign.OAuth2FeignRequestInterceptor
 import org.springframework.context.annotation.Bean
@@ -62,8 +61,6 @@ class EntityAuditingConfig {
     fun userIdAuditorAware() =
         AuditorAware<Long> { Optional.ofNullable(SecurityContextHolder.getContext().getUserId()) }
 }
-
-
 
 @Configuration
 class WebMvcConfig : WebMvcConfigurer {

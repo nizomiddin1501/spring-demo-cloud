@@ -71,9 +71,6 @@ data class UserResponse(
     @Schema(description = "User full name", example = "Nizomiddin Mirzanazarov")
     var fullName: String,
 
-    @Schema(description = "User's password", example = "root123")
-    var password: String?,
-
     @Schema(description = "Role name for the user", example = "ADMIN")
     var roleName: String?,
 

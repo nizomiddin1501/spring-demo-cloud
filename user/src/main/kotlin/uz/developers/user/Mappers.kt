@@ -24,7 +24,6 @@ class UserMapper {
                 id = this.id,
                 username = this.username,
                 fullName = this.fullName,
-                password = this.password,
                 roleName = this.role.name,
                 status = this.status,
                 balance = this.balance

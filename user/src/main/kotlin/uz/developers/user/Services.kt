@@ -6,7 +6,6 @@ import org.springframework.data.domain.Pageable
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
-import javax.management.relation.RoleNotFoundException
 import javax.persistence.EntityManager
 import javax.transaction.Transactional
 
@@ -77,9 +76,12 @@ class UserServiceImpl(
         val existsByRoleId = roleRepository.existsByRoleId(request.roleId)
         if (!existsByRoleId) throw UserRoleNotFoundException()
         val referenceRole = entityManager.getReference(
-            Role::class.java, request.roleId
-        )
-        repository.save(mapper.toEntity(request, referenceRole))
+            Role::class.java, request.roleId)
+
+        val encodedPassword = passwordEncoder.encode(request.password)
+        val user = mapper.toEntity(request, referenceRole)
+        user.password = encodedPassword
+        repository.save(user)
     }
 
     override fun update(id: Long, request: UserUpdateRequest) {
@@ -87,23 +89,27 @@ class UserServiceImpl(
         repository.findByUsernameAndId(id, request.username)?.let { throw UserAlreadyExistsException() }
 
         val updateUser = mapper.updateEntity(user, request)
+
+        if (request.password.isNotEmpty()) {
+            updateUser.password = passwordEncoder.encode(request.password)
+        }
         repository.save(updateUser)
     }
 
     override fun getUserBalance(id: Long): BigDecimal {
-        val user = repository.findById(id).orElseThrow { UserNotFoundException() }
+        val user = repository.findUserById(id) ?: throw UserNotFoundException()
         return user.balance
     }
 
     override fun fillBalance(userId: Long, amount: BigDecimal): BigDecimal {
-        val user = repository.findById(userId).orElseThrow { UserNotFoundException() }
+        val user = repository.findUserById(userId) ?: throw UserNotFoundException()
         user.balance += amount
         repository.save(user)
         return user.balance
     }
 
     override fun deductBalance(userId: Long, amount: BigDecimal): Boolean {
-        val user = repository.findById(userId).orElseThrow { UserNotFoundException() }
+        val user = repository.findUserById(userId) ?: throw UserNotFoundException()
         if (user.balance >= amount) {
             user.balance -= amount
             repository.save(user)

@@ -23,8 +23,6 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
-//    maven { url = uri("https://repo.spring.io/milestone") } // Spring Cloud uchun kerak
-//    maven { url = uri("https://repo.spring.io/snapshot") }  // Snapshot dependency lar uchun
 }
 
 extra["springCloudVersion"] = "Hoxton.SR4"
@@ -38,8 +36,9 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    //implementation("org.springframework.cloud:spring-cloud-starter-oauth2")
     implementation("org.springframework.cloud:spring-cloud-starter-config")
+    implementation("org.springframework.cloud:spring-cloud-starter-oauth2")
+    implementation("org.springframework.cloud:spring-cloud-starter-security")
     implementation("org.springframework.cloud:spring-cloud-starter-openfeign")
     implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
     runtimeOnly("org.postgresql:postgresql")
