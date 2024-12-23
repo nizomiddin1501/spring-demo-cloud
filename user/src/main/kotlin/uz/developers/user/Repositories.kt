@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.jpa.repository.support.JpaEntityInformation
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository
@@ -54,8 +55,14 @@ interface UserRepository : BaseRepository<User> {
     fun findByUsernameAndDeletedFalse(username: String): User?
     fun findByUsernameAndStatusAndDeletedFalse(username: String, status: UserStatus): User?
 
-    @Query(value = "select * from users where id = :id", nativeQuery = true)
+    @Query(value = "select u from users u where u.id = :id")
     fun findUserById(@Param("id") id: Long): User?
+
+    @Modifying
+    @Query("update users u set u.balance = u.balance + :amount where u.id = :userId")
+    fun incrementBalance(@Param("userId") userId: Long, @Param("amount") amount: BigDecimal): Int
+
+
 
     @Query("""
         select u from users u

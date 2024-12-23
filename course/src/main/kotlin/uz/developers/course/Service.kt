@@ -83,6 +83,7 @@ class CourseServiceImpl(
         return CourseStatsResponse(totalCourses, totalIncome)
     }
 
+    @Transactional
     override fun purchaseCourse(userId: Long, courseId: Long): PaymentResponse {
         val userResponse = userService.getOne(userId) ?: throw UserNotFoundException()
         val courseResponse = getOne(courseId) ?: throw CourseNotFoundException()

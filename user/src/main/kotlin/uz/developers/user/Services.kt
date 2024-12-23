@@ -101,13 +101,16 @@ class UserServiceImpl(
         return user.balance
     }
 
+    @Transactional
     override fun fillBalance(userId: Long, amount: BigDecimal): BigDecimal {
-        val user = repository.findUserById(userId) ?: throw UserNotFoundException()
-        user.balance = user.balance.add(amount)
-
-        repository.save(user)
-        return user.balance
+        val updatedRows = repository.incrementBalance(userId, amount)
+        if (updatedRows == 0) {
+            throw UserNotFoundException()
+        }
+        return repository.findUserById(userId)?.balance
+            ?: throw UserNotFoundException()
     }
+
 
 //    override fun deductBalance(userId: Long, amount: BigDecimal): Boolean {
 //        val user = repository.findUserById(userId) ?: throw UserNotFoundException()
