@@ -31,15 +31,6 @@
         </option>
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="externalProjectPath" value="$PROJECT_DIR$/demo" />
-        <option name="gradleJvm" value="corretto-17 (2)" />
-        <option name="modules">
-          <set>
-            <option value="$PROJECT_DIR$/demo" />
-          </set>
-        </option>
-      </GradleProjectSettings>
-      <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$/discovery" />
         <option name="gradleJvm" value="corretto-17 (2)" />
         <option name="modules">

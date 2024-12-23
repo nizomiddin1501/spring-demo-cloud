@@ -34,11 +34,7 @@ class InternalController(
 @RestController
 @RequestMapping("/api/users")
 class UserController(
-    private val demoService: DemoService,
     private val userService: UserService) {
-
-    @GetMapping("get-demo-hello")
-    fun getHello() = demoService.getHelloMessageSecure()
 
     @Operation(summary = "Get all users", description = "Fetches all users from the database.")
     @ApiResponses(ApiResponse(responseCode = "200", description = "Successfully fetched all users"))
@@ -93,18 +89,18 @@ class UserController(
     }
 
 
-    @Operation(summary = "Deduct user balance", description = "Deducts the specified amount from the user's balance if sufficient funds are available.")
-    @ApiResponses(
-        ApiResponse(responseCode = "200", description = "Balance successfully deducted"),
-        ApiResponse(responseCode = "400", description = "Insufficient balance or invalid amount"),
-        ApiResponse(responseCode = "404", description = "User not found")
-    )
-    @PostMapping("/deduct/{id}")
-    fun deductBalance(
-        @PathVariable id: Long,
-        @RequestParam amount: BigDecimal): Boolean {
-        return userService.deductBalance(id, amount)
-    }
+//    @Operation(summary = "Deduct user balance", description = "Deducts the specified amount from the user's balance if sufficient funds are available.")
+//    @ApiResponses(
+//        ApiResponse(responseCode = "200", description = "Balance successfully deducted"),
+//        ApiResponse(responseCode = "400", description = "Insufficient balance or invalid amount"),
+//        ApiResponse(responseCode = "404", description = "User not found")
+//    )
+//    @PostMapping("/deduct/{id}")
+//    fun deductBalance(
+//        @PathVariable id: Long,
+//        @RequestParam amount: BigDecimal): Boolean {
+//        return userService.deductBalance(id, amount)
+//    }
 
 
     @Operation(summary = "Add amount to user balance", description = "Adds the specified amount to the user's balance.")

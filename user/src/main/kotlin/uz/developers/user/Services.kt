@@ -23,7 +23,7 @@ interface UserService {
     fun update(id: Long, request: UserUpdateRequest)
     fun getUserBalance(id: Long): BigDecimal
     fun fillBalance(userId: Long, amount: BigDecimal): BigDecimal
-    fun deductBalance(userId: Long, amount: BigDecimal): Boolean
+    //fun deductBalance(userId: Long, amount: BigDecimal): Boolean
     fun getUserStats(): UserStatsResponse
     fun delete(id: Long)
 }
@@ -108,15 +108,15 @@ class UserServiceImpl(
         return user.balance
     }
 
-    override fun deductBalance(userId: Long, amount: BigDecimal): Boolean {
-        val user = repository.findUserById(userId) ?: throw UserNotFoundException()
-        if (user.balance >= amount) {
-            user.balance -= amount
-            repository.save(user)
-            return true
-        }
-        return false
-    }
+//    override fun deductBalance(userId: Long, amount: BigDecimal): Boolean {
+//        val user = repository.findUserById(userId) ?: throw UserNotFoundException()
+//        if (user.balance >= amount) {
+//            user.balance -= amount
+//            repository.save(user)
+//            return true
+//        }
+//        return false
+//    }
 
     override fun getUserStats(): UserStatsResponse {
         val totalUsers = repository.count()
