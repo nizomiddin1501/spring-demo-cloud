@@ -16,6 +16,10 @@ fun main(args: Array<String>) {
     runApplication<ConfigApplication>(*args)
 }
 
+
+//        my portfolio
+//        https://nizomiddin-portfolio.netlify.app/
+
 @Configuration
 class SecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity?) {

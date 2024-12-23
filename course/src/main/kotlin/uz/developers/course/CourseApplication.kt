@@ -14,3 +14,7 @@ class CourseApplication
 fun main(args: Array<String>) {
     runApplication<CourseApplication>(*args)
 }
+
+
+//        my portfolio
+//        https://nizomiddin-portfolio.netlify.app/

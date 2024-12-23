@@ -12,4 +12,6 @@ fun main(args: Array<String>) {
     runApplication<DiscoveryApplication>(*args)
 }
 
-//wert
+
+//        my portfolio
+//        https://nizomiddin-portfolio.netlify.app/

@@ -13,3 +13,7 @@ class GatewayApplication
 fun main(args: Array<String>) {
     runApplication<GatewayApplication>(*args)
 }
+
+
+//        my portfolio
+//        https://nizomiddin-portfolio.netlify.app/
