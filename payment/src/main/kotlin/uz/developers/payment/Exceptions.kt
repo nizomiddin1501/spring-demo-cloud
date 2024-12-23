@@ -30,24 +30,8 @@ class UserNotFoundException : PaymentExceptionHandler() {
     }
 }
 
-class CourseAlreadyExistsException : PaymentExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.COURSE_ALREADY_EXISTS
-    }
-}
-
-class CourseNotFoundException : PaymentExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.COURSE_NOT_FOUND
-    }
-}
 
 
-class PaymentAlreadyExistsException : PaymentExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.PAYMENT_ALREADY_EXISTS
-    }
-}
 
 class PaymentNotFoundException : PaymentExceptionHandler() {
     override fun errorCode(): ErrorCodes {
@@ -56,23 +40,6 @@ class PaymentNotFoundException : PaymentExceptionHandler() {
 }
 
 
-class UserAccessDeniedException : PaymentExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.ROLE_ACCESS_DENIED
-    }
-}
-
-class CannotCancelOrderException : PaymentExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.CANNOT_CANCEL_ORDER
-    }
-}
-
-class InvalidOrderStatusException : PaymentExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.INVALID_ORDER_STATUS
-    }
-}
 
 class InvalidPaymentMethodException : PaymentExceptionHandler() {
     override fun errorCode(): ErrorCodes {

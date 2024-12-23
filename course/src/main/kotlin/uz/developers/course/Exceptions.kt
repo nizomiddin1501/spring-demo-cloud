@@ -19,12 +19,6 @@ sealed class MicroserviceExceptionHandler() : RuntimeException() {
     }
 }
 
-class UserAlreadyExistsException : MicroserviceExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.USER_ALREADY_EXISTS
-    }
-}
-
 class UserNotFoundException : MicroserviceExceptionHandler() {
     override fun errorCode(): ErrorCodes {
         return ErrorCodes.USER_NOT_FOUND
@@ -44,18 +38,6 @@ class CourseNotFoundException : MicroserviceExceptionHandler() {
 }
 
 
-class PaymentAlreadyExistsException : MicroserviceExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.PAYMENT_ALREADY_EXISTS
-    }
-}
-
-class PaymentNotFoundException : MicroserviceExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.PAYMENT_NOT_FOUND
-    }
-}
-
 
 class UserAccessDeniedException : MicroserviceExceptionHandler() {
     override fun errorCode(): ErrorCodes {
@@ -63,23 +45,7 @@ class UserAccessDeniedException : MicroserviceExceptionHandler() {
     }
 }
 
-class CannotCancelOrderException : MicroserviceExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.CANNOT_CANCEL_ORDER
-    }
-}
 
-class InvalidOrderStatusException : MicroserviceExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.INVALID_ORDER_STATUS
-    }
-}
-
-class InvalidPaymentMethodException : MicroserviceExceptionHandler() {
-    override fun errorCode(): ErrorCodes {
-        return ErrorCodes.PAYMENT_METHOD_NOT_FOUND
-    }
-}
 
 class InsufficientBalanceException : MicroserviceExceptionHandler() {
     override fun errorCode(): ErrorCodes {

@@ -31,9 +31,6 @@ enum class ErrorCodes(val code: Int) {
     INSUFFICIENT_BALANCE(111)
 }
 
-//enum class UserRole {
-//    ADMIN, USER
-//}
 
 enum class UserStatus {
     INACTIVE,
