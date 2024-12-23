@@ -7,15 +7,15 @@ import javax.validation.Valid
 @FeignClient(name = "user", configuration = [Auth2TokenConfiguration::class])
 interface UserService {
 
-    @GetMapping("/api/users/{id}")
+    @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): UserResponse
 
 
-    @GetMapping("/api/users/balance/{id}")
+    @GetMapping("/balance/{id}")
     fun getUserBalance(@PathVariable id: Long): BigDecimal
 
 
-    @PostMapping("/api/users/deduct/{id}")
+    @PostMapping("/deduct/{id}")
     fun deductBalance(
         @PathVariable id: Long,
         @RequestParam amount: BigDecimal): Boolean
@@ -26,11 +26,11 @@ interface UserService {
 @FeignClient(name = "payment", configuration = [Auth2TokenConfiguration::class])
 interface PaymentService {
 
-    @GetMapping("/api/payments/{id}")
+    @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): UserResponse
 
 
-    @PostMapping("/api/payments")
+    @PostMapping
     fun create(@RequestBody @Valid request: PaymentCreateRequest): PaymentResponse
 
 }

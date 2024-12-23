@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 @FeignClient(name = "user", configuration = [Auth2TokenConfiguration::class])
 interface UserService {
 
-    @GetMapping("/api/users/{id}")
+    @GetMapping("/{id}")
     fun getOne(@PathVariable("id") id: Long): UserResponse
 
 }
@@ -15,7 +15,7 @@ interface UserService {
 @FeignClient(name = "course", configuration = [Auth2TokenConfiguration::class])
 interface CourseService {
 
-    @GetMapping("/api/courses/{id}")
+    @GetMapping("/{id}")
     fun getOne(@PathVariable id: Long): CourseResponse
 
 

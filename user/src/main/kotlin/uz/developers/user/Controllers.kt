@@ -32,7 +32,7 @@ class InternalController(
 
 
 @RestController
-@RequestMapping("/api/users")
+//@RequestMapping("/api/users")
 class UserController(
     private val userService: UserService) {
 

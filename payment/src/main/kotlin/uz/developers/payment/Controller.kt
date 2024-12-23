@@ -21,12 +21,11 @@ class ExceptionHandler(private val errorMessageSource: ResourceBundleMessageSour
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/payments")
+//@RequestMapping("/api/payments")
 class PaymentController(
     private val paymentService: PaymentService) {
 
 
-    // Get all payments with pagination
     @Operation(summary = "Get all payments", description = "Retrieves all payments with pagination.")
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "Payments found"),
