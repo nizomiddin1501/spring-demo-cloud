@@ -1,12 +1,11 @@
 package uz.developers.course
+
 import io.swagger.v3.oas.annotations.media.Schema
 import java.math.BigDecimal
 import java.time.LocalDateTime
-import javax.persistence.Column
-import javax.persistence.EnumType
-import javax.persistence.Enumerated
+import javax.persistence.*
 
-data class BaseMessage(val code : Int, val message : String?)
+data class BaseMessage(val code: Int, val message: String?)
 
 
 @Schema(description = "Data transfer object for User createRequest")
@@ -125,7 +124,10 @@ data class CourseCreateRequest(
     val description: String,
 
     @Schema(description = "Course price", example = "150.0")
-    val price: BigDecimal
+    val price: BigDecimal,
+
+    @Schema(description = "Course status", example = "AVAILABLE")
+    var courseStatus: CourseStatus
 )
 
 
@@ -142,7 +144,10 @@ data class CourseResponse(
     val description: String?,
 
     @Schema(description = "Course price", example = "150.0")
-    val price: BigDecimal?
+    val price: BigDecimal?,
+
+    @Schema(description = "Course status", example = "AVAILABLE")
+    var courseStatus: CourseStatus?
 )
 
 
@@ -156,8 +161,50 @@ data class CourseUpdateRequest(
     var description: String,
 
     @Schema(description = "Course price", example = "150.0")
-    var price: BigDecimal
+    var price: BigDecimal,
+
+    @Schema(description = "Course status", example = "AVAILABLE")
+    var courseStatus: CourseStatus
 )
+
+
+@Schema(description = "Data transfer object for Purchase createRequest")
+class PurchaseCreateRequest(
+
+    @Schema(description = "User ID", example = "1")
+    var userId: Long,
+
+    @Schema(description = "Course ID for the purchase", example = "3")
+    val courseId: Long,
+
+    @Schema(description = "Purchase date and time", example = "2024-11-24T10:15:30")
+    var purchaseDate: LocalDateTime = LocalDateTime.now(),
+
+    @Schema(description = "Purchase status", example = "AVAILABLE")
+    var purchaseStatus: PurchaseStatus
+)
+
+
+
+@Schema(description = "Data transfer object for Purchase response")
+class PurchaseResponse(
+
+    @Schema(description = "Purchase ID", example = "1")
+    val id: Long?,
+
+    @Schema(description = "User ID", example = "1")
+    var userId: Long?,
+
+    @Schema(description = "Course name for the purchase", example = "Java")
+    var courseName: String?,
+
+    @Schema(description = "Purchase date and time", example = "2024-11-24T10:15:30")
+    var purchaseDate: LocalDateTime = LocalDateTime.now(),
+
+    @Schema(description = "Purchase status", example = "AVAILABLE")
+    var purchaseStatus: PurchaseStatus?
+)
+
 
 
 @Schema(description = "Data transfer object for Payment createRequest")

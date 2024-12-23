@@ -60,10 +60,10 @@ class BaseRepositoryImpl<T : BaseEntity>(
 @Repository
 interface PaymentRepository : BaseRepository<Payment> {
 
-    //fun findByUserId(userId: Long?): List<Payment>
-
     @Query(value = "select sum(amount) from payments where deleted = false", nativeQuery = true)
     fun sumAmountPaid(): BigDecimal?
+
+    fun findByUserId(userId: Long): List<Payment>
 
 
 }

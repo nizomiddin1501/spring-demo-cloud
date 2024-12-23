@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 import java.time.LocalDateTime
 import javax.transaction.Transactional
 
@@ -17,7 +18,7 @@ interface CourseService {
     fun create(request: CourseCreateRequest, userId: Long): CourseResponse
     fun update(id: Long, request: CourseUpdateRequest, userId: Long): CourseResponse
     fun getCourseStats(): CourseStatsResponse
-    fun purchaseCourse(userId: Long, courseId: Long): PaymentResponse
+    fun purchaseCourse(userId: Long, courseId: Long, paymentMethod: PaymentMethod): PaymentResponse
     fun delete(id: Long, userId: Long)
 }
 
@@ -27,6 +28,7 @@ class CourseServiceImpl(
     private val courseRepository: CourseRepository,
     private val courseMapper: CourseMapper,
     private val userService: UserService,
+    private val purchaseRepository: PurchaseRepository,
     @Lazy private val paymentService: PaymentService
 ) : CourseService {
 
@@ -56,8 +58,13 @@ class CourseServiceImpl(
         }
     }
 
+    //TODO
+    // shetta courseStatus buyicha savol
     override fun create(request: CourseCreateRequest, userId: Long): CourseResponse {
         checkAdminRole(userId)
+        if (request.price < BigDecimal.ZERO) {
+            throw InvalidCoursePriceException()
+        }
         val course = courseRepository.findByNameAndDeletedFalse(request.name)
         if (course != null) throw CourseAlreadyExistsException()
         val courseEntity = courseMapper.toEntity(request)
@@ -84,24 +91,47 @@ class CourseServiceImpl(
     }
 
     @Transactional
-    override fun purchaseCourse(userId: Long, courseId: Long): PaymentResponse {
+    override fun purchaseCourse(userId: Long, courseId: Long, paymentMethod: PaymentMethod): PaymentResponse {
         val userResponse = userService.getOne(userId) ?: throw UserNotFoundException()
-        val courseResponse = getOne(courseId) ?: throw CourseNotFoundException()
+        val course = courseRepository.findByCourseId(courseId) ?: throw CourseNotFoundException()
+
+        if (purchaseRepository.existsByUserIdAndCourseId(userId, courseId)) {
+            throw CourseAlreadyPurchasedException()
+        }
 
         val userBalance = userService.getUserBalance(userId)
-        if (userBalance<courseResponse.price) {
+        if (userBalance<course.price) {
             throw InsufficientBalanceException()
         }
         val paymentCreateRequest = PaymentCreateRequest(
             userId = userId,
             courseId = courseId,
-            amount = courseResponse.price!!,
+            amount = course.price,
             paymentDate = LocalDateTime.now(),
-            paymentMethod = PaymentMethod.CREDIT_CARD,
-            status = Status.SUCCESS
+            paymentMethod = paymentMethod,
+            status = Status.PENDING
         )
-        return paymentService.create(paymentCreateRequest)
+        val paymentResponse = paymentService.create(paymentCreateRequest)
+        if (paymentResponse.status == Status.SUCCESS) {
+            createPurchase(userId, course, PurchaseStatus.PURCHASED)
+        } else {
+            throw PaymentFailedException()
+        }
+        return paymentResponse
     }
+
+    fun createPurchase(userId: Long, course: Course, status: PurchaseStatus): Purchase {
+        val purchase = Purchase(
+            userId = userId,
+            course = course,
+            purchaseStatus = status,
+            purchaseDate = LocalDateTime.now()
+        )
+        return purchaseRepository.save(purchase)
+    }
+
+
+
 
     @Transactional
     override fun delete(id: Long, userId: Long) {

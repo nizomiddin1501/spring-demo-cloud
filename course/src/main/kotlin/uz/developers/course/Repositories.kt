@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.support.JpaEntityInformation
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository
 import org.springframework.data.repository.NoRepositoryBean
 import org.springframework.data.repository.findByIdOrNull
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.math.BigDecimal
 import javax.persistence.EntityManager
@@ -63,8 +64,15 @@ interface CourseRepository : BaseRepository<Course> {
     @Query(value = "select sum(price) from course", nativeQuery = true)
     fun sumCoursePrice(): BigDecimal
 
-//    fun findAllNotDeletedForPageable(pageable: Pageable): Page<Course>
+    @Query("select c from course c where c.id = :courseId")
+    fun findByCourseId(@Param("courseId") courseId: Long): Course?
 
 }
+
+@Repository
+interface PurchaseRepository : BaseRepository<Purchase> {
+    fun existsByUserIdAndCourseId(userId: Long, courseId: Long): Boolean
+}
+
 
 

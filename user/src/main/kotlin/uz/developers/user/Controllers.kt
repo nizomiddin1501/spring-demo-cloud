@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import org.springframework.context.support.ResourceBundleMessageSource
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.ExceptionHandler
 import java.math.BigDecimal
@@ -17,6 +19,16 @@ class ExceptionHandler(private val errorMessageSource: ResourceBundleMessageSour
     @ExceptionHandler(UserExceptionHandler::class)
     fun handleAccountException(exception: UserExceptionHandler): ResponseEntity<BaseMessage> {
         return ResponseEntity.badRequest().body(exception.getErrorMessage(errorMessageSource))
+    }
+}
+
+
+@RestControllerAdvice
+class GlobalExceptionHandler {
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<Map<String, String>> {
+        val errors = ex.bindingResult.fieldErrors.associate { it.field to (it.defaultMessage ?: "Invalid value") }
+        return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
     }
 }
 

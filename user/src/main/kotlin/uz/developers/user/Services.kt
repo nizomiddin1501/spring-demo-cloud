@@ -71,8 +71,9 @@ class UserServiceImpl(
     }
 
     override fun create(request: UserCreateRequest) {
-        val existingUser = repository.findByUsernameAndDeletedFalse(request.username)
-        if (existingUser != null) throw UserAlreadyExistsException()
+        repository.findByUsernameAndDeletedFalse(request.username)
+            ?: throw UserNotFoundException()
+
         val existsByRoleId = roleRepository.existsByRoleId(request.roleId)
         if (!existsByRoleId) throw UserRoleNotFoundException()
         val referenceRole = entityManager.getReference(
@@ -86,7 +87,7 @@ class UserServiceImpl(
 
     override fun update(id: Long, request: UserUpdateRequest) {
         val user = repository.findByIdAndDeletedFalse(id) ?: throw UserNotFoundException()
-        repository.findByUsernameAndId(id, request.username)?.let { throw UserAlreadyExistsException() }
+        repository.findByUsernameAndIdDeletedFalse(id, request.username)?.let { throw UserAlreadyExistsException() }
 
         val updateUser = mapper.updateEntity(user, request)
 
@@ -103,6 +104,9 @@ class UserServiceImpl(
 
     @Transactional
     override fun fillBalance(userId: Long, amount: BigDecimal): BigDecimal {
+        if (amount <= BigDecimal.ZERO) {
+            throw InvalidAmountException()
+        }
         val updatedRows = repository.incrementBalance(userId, amount)
         if (updatedRows == 0) {
             throw UserNotFoundException()

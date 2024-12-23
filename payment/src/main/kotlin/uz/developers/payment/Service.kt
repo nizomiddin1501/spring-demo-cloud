@@ -37,10 +37,31 @@ class PaymentServiceImpl(
     override fun create(request: PaymentCreateRequest): PaymentResponse {
         val userResponse = userService.getOne(request.userId) ?: throw UserNotFoundException()
         val courseResponse = courseService.getOne(request.courseId) ?: throw CourseNotFoundException()
+
+        when (request.paymentMethod) {
+            PaymentMethod.CREDIT_CARD, PaymentMethod.DEBIT_CARD -> {
+                if (userResponse.balance!! < request.amount) {
+                    throw InsufficientBalanceException()
+                }
+            }
+            PaymentMethod.E_WALLET -> {
+                if (userResponse.balance!! < request.amount) {
+                    throw InsufficientBalanceException()
+                }
+            }
+            PaymentMethod.CASH -> {
+                throw CashPaymentNotAllowedException()
+            }
+            else -> {
+                throw InvalidPaymentMethodException()
+            }
+        }
         val payment = paymentMapper.toEntity(request)
+
         val savedPayment = paymentRepository.save(payment)
         return paymentMapper.toDto(savedPayment, userResponse.username, courseResponse.name)
     }
+
 
 //    override fun update(id: Long, request: PaymentUpdateRequest): PaymentResponse {
 //        val payment = paymentRepository.findById(id)
@@ -52,14 +73,20 @@ class PaymentServiceImpl(
 
 
     // Get all payments ts by user ID
+//    override fun getPaymentsByUserId(userId: Long): List<PaymentResponse> {
+//        val payments = paymentRepository.findAll()
+//        val userPayments = payments.filter { payment ->
+//            val user = userService.getOne(userId)
+//            user.id == userId
+//        }
+//        return userPayments.map { paymentMapper.toDto(it) }
+//    }
+
     override fun getPaymentsByUserId(userId: Long): List<PaymentResponse> {
-        val payments = paymentRepository.findAll()
-        val userPayments = payments.filter { payment ->
-            val user = userService.getOne(userId)
-            user.id == userId
-        }
+        val userPayments = paymentRepository.findByUserId(userId)
         return userPayments.map { paymentMapper.toDto(it) }
     }
+
 
 
     // Get payment statistics

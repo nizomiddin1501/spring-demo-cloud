@@ -4,7 +4,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse
 import io.swagger.v3.oas.annotations.responses.ApiResponses
 import lombok.RequiredArgsConstructor
 import org.springframework.context.support.ResourceBundleMessageSource
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.bind.annotation.ExceptionHandler
 import javax.validation.Valid
@@ -18,6 +20,15 @@ class ExceptionHandler(private val errorMessageSource: ResourceBundleMessageSour
     }
 }
 
+
+@RestControllerAdvice
+class GlobalExceptionHandler {
+    @ExceptionHandler(MethodArgumentNotValidException::class)
+    fun handleValidationException(ex: MethodArgumentNotValidException): ResponseEntity<Map<String, String>> {
+        val errors = ex.bindingResult.fieldErrors.associate { it.field to (it.defaultMessage ?: "Invalid value") }
+        return ResponseEntity(errors, HttpStatus.BAD_REQUEST)
+    }
+}
 
 
 @RestController
@@ -91,8 +102,9 @@ class CourseController(val service: CourseService) {
     @PostMapping("/purchase/{courseId}")
     fun purchaseCourse(
         @PathVariable courseId: Long,
-        @RequestParam("userId") userId: Long): PaymentResponse {
-        return service.purchaseCourse(userId, courseId)
+        @RequestParam("userId") userId: Long,
+        @RequestParam("paymentMethod") paymentMethod: PaymentMethod): PaymentResponse {
+        return service.purchaseCourse(userId, courseId, paymentMethod)
     }
 
     @Operation(summary = "Delete course by ID", description = "Deletes a course based on the provided ID.")

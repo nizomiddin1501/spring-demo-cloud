@@ -70,7 +70,7 @@ interface UserRepository : BaseRepository<User> {
         and u.username = :username
         and u.deleted = false 
     """)
-    fun findByUsernameAndId(id: Long, username: String): User?
+    fun findByUsernameAndIdDeletedFalse(id: Long, username: String): User?
 
     @Query(value = "select sum(balance) from users", nativeQuery = true)
     fun sumBalance(): BigDecimal

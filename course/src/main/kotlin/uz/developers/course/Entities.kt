@@ -1,4 +1,5 @@
 package uz.developers.course
+
 import io.swagger.v3.oas.annotations.media.Schema
 import org.springframework.data.annotation.CreatedBy
 import org.springframework.data.annotation.CreatedDate
@@ -6,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedBy
 import org.springframework.data.annotation.LastModifiedDate
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.math.BigDecimal
+import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
 
@@ -39,9 +41,37 @@ class Course(
 
     @Column(nullable = false)
     @Schema(description = "Course price", example = "150.0")
-    var price: BigDecimal
+    var price: BigDecimal,
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Schema(description = "Course status", example = "AVAILABLE")
+    var courseStatus: CourseStatus = CourseStatus.AVAILABLE,
+
 ) : BaseEntity() {
     constructor() : this("", "", BigDecimal.ZERO)
 }
+
+@Table
+@Entity(name = "purchase")
+@Schema(description = "Purchase details")
+class Purchase(
+
+    @Column(nullable = false)
+    @Schema(description = "User ID", example = "1")
+    var userId: Long,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
+    val course: Course,
+
+    @Column(nullable = false)
+    var purchaseDate: LocalDateTime = LocalDateTime.now(),
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Schema(description = "Purchase status", example = "AVAILABLE")
+    var purchaseStatus: PurchaseStatus = PurchaseStatus.AVAILABLE,
+) : BaseEntity()
 
 
