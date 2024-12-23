@@ -124,10 +124,7 @@ data class CourseCreateRequest(
     val description: String,
 
     @Schema(description = "Course price", example = "150.0")
-    val price: BigDecimal,
-
-    @Schema(description = "Course status", example = "AVAILABLE")
-    var courseStatus: CourseStatus
+    val price: BigDecimal
 )
 
 
@@ -144,10 +141,7 @@ data class CourseResponse(
     val description: String?,
 
     @Schema(description = "Course price", example = "150.0")
-    val price: BigDecimal?,
-
-    @Schema(description = "Course status", example = "AVAILABLE")
-    var courseStatus: CourseStatus?
+    val price: BigDecimal?
 )
 
 
@@ -161,10 +155,7 @@ data class CourseUpdateRequest(
     var description: String,
 
     @Schema(description = "Course price", example = "150.0")
-    var price: BigDecimal,
-
-    @Schema(description = "Course status", example = "AVAILABLE")
-    var courseStatus: CourseStatus
+    var price: BigDecimal
 )
 
 

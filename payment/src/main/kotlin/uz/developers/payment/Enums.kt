@@ -12,7 +12,6 @@ enum class Status {
 enum class PaymentMethod {
     CREDIT_CARD,
     DEBIT_CARD,
-    BANK_TRANSFER,
     E_WALLET,
     CASH
 }
@@ -33,7 +32,6 @@ enum class ErrorCodes(val code:Int) {
     FEIGN_ERROR(106),
     VALIDATION_ERROR(404),
 
-    // Custom errors
     PAYMENT_METHOD_NOT_FOUND(603),
     INSUFFICIENT_BALANCE(111)
 }

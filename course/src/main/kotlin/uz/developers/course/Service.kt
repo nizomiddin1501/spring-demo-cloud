@@ -58,8 +58,7 @@ class CourseServiceImpl(
         }
     }
 
-    //TODO
-    // shetta courseStatus buyicha savol
+
     override fun create(request: CourseCreateRequest, userId: Long): CourseResponse {
         checkAdminRole(userId)
         if (request.price < BigDecimal.ZERO) {

@@ -57,6 +57,7 @@ class PaymentServiceImpl(
             }
         }
         val payment = paymentMapper.toEntity(request)
+        payment.status = Status.SUCCESS
 
         val savedPayment = paymentRepository.save(payment)
         return paymentMapper.toDto(savedPayment, userResponse.username, courseResponse.name)
@@ -71,16 +72,6 @@ class PaymentServiceImpl(
 //        return paymentMapper.toDto(savedPayment)
 //    }
 
-
-    // Get all payments ts by user ID
-//    override fun getPaymentsByUserId(userId: Long): List<PaymentResponse> {
-//        val payments = paymentRepository.findAll()
-//        val userPayments = payments.filter { payment ->
-//            val user = userService.getOne(userId)
-//            user.id == userId
-//        }
-//        return userPayments.map { paymentMapper.toDto(it) }
-//    }
 
     override fun getPaymentsByUserId(userId: Long): List<PaymentResponse> {
         val userPayments = paymentRepository.findByUserId(userId)

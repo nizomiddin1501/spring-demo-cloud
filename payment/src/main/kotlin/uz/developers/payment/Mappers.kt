@@ -28,7 +28,7 @@ class PaymentMapper {
                 amount = this.amount,
                 paymentDate = this.paymentDate,
                 paymentMethod = this.paymentMethod,
-                status = this.status
+                status = Status.PENDING
             )
         }
     }
@@ -39,7 +39,6 @@ class PaymentMapper {
                 updateRequest.amount.let { this.amount = it }
                 updateRequest.paymentDate.let { this.paymentDate = it }
                 updateRequest.paymentMethod.let { this.paymentMethod = it }
-                updateRequest.status.let { this.status = it }
             }
         }
     }

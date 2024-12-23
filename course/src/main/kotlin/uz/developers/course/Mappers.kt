@@ -1,5 +1,7 @@
 package uz.developers.course
+
 import org.springframework.stereotype.Component
+
 @Component
 class CourseMapper {
 
@@ -9,8 +11,7 @@ class CourseMapper {
                 id = this.id,
                 name = this.name,
                 description = this.description,
-                price = this.price,
-                courseStatus = this.courseStatus
+                price = this.price
             )
         }
     }
@@ -20,8 +21,7 @@ class CourseMapper {
             Course(
                 name = this.name,
                 description = this.description,
-                price = this.price,
-                courseStatus = this.courseStatus
+                price = this.price
             )
         }
     }
@@ -32,7 +32,6 @@ class CourseMapper {
                 updateRequest.name.let { this.name = it }
                 updateRequest.description.let { this.description = it }
                 updateRequest.price.let { this.price = it }
-                updateRequest.courseStatus.let { this.courseStatus = it }
             }
         }
     }
@@ -64,7 +63,7 @@ class PurchaseMapper {
             )
         }
     }
- }
+}
 
 
 

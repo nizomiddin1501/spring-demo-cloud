@@ -41,12 +41,7 @@ class Course(
 
     @Column(nullable = false)
     @Schema(description = "Course price", example = "150.0")
-    var price: BigDecimal,
-
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    @Schema(description = "Course status", example = "AVAILABLE")
-    var courseStatus: CourseStatus = CourseStatus.AVAILABLE,
+    var price: BigDecimal
 
 ) : BaseEntity() {
     constructor() : this("", "", BigDecimal.ZERO)

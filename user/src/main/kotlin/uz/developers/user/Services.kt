@@ -71,8 +71,8 @@ class UserServiceImpl(
     }
 
     override fun create(request: UserCreateRequest) {
-        repository.findByUsernameAndDeletedFalse(request.username)
-            ?: throw UserNotFoundException()
+         repository.existsByUsername(request.username)
+            ?: throw UserAlreadyExistsException()
 
         val existsByRoleId = roleRepository.existsByRoleId(request.roleId)
         if (!existsByRoleId) throw UserRoleNotFoundException()

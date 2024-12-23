@@ -49,40 +49,6 @@ data class UserResponse(
 )
 
 
-@Schema(description = "Data transfer object for User createRequest")
-data class UserUpdateRequest(
-
-    @Column(unique = true, nullable = false)
-    @Schema(description = "Unique username", example = "nizomiddin097")
-    var username: String,
-
-    @Column(nullable = false)
-    @Schema(description = "User's password", example = "root123")
-    var password: String,
-
-    @Schema(description = "User role", example = "USER")
-    @Enumerated(EnumType.STRING)
-    var role: UserRole,
-
-    @Schema(description = "User balance", example = "100.0")
-    var balance: BigDecimal
-)
-
-
-@Schema(description = "Data transfer object for Course createRequest")
-data class CourseCreateRequest(
-
-    @Schema(description = "Course name", example = "Kotlin Programming")
-    val name: String,
-
-    @Schema(description = "Course description", example = "A complete guide to Kotlin programming language")
-    val description: String,
-
-    @Schema(description = "Course price", example = "150.0")
-    val price: BigDecimal
-)
-
-
 @Schema(description = "Data transfer object for Course response")
 data class CourseResponse(
 
@@ -97,20 +63,6 @@ data class CourseResponse(
 
     @Schema(description = "Course price", example = "150.0")
     val price: BigDecimal?
-)
-
-
-@Schema(description = "Data transfer object for Course updateRequest")
-data class CourseUpdateRequest(
-
-    @Schema(description = "Course name", example = "Kotlin Programming")
-    var name: String,
-
-    @Schema(description = "Course description", example = "A complete guide to Kotlin programming language")
-    var description: String,
-
-    @Schema(description = "Course price", example = "150.0")
-    var price: BigDecimal
 )
 
 
@@ -130,10 +82,7 @@ data class PaymentCreateRequest(
     var paymentDate: LocalDateTime = LocalDateTime.now(),
 
     @Schema(description = "Payment method used", example = "CREDIT_CARD")
-    var paymentMethod: PaymentMethod,
-
-    @Schema(description = "Payment status", example = "SUCCESS")
-    var status: Status
+    var paymentMethod: PaymentMethod
 )
 
 
@@ -180,10 +129,7 @@ data class PaymentUpdateRequest(
     var paymentDate: LocalDateTime = LocalDateTime.now(),
 
     @Schema(description = "Payment method used", example = "CREDIT_CARD")
-    var paymentMethod: PaymentMethod,
-
-    @Schema(description = "Payment status", example = "SUCCESS")
-    var status: Status
+    var paymentMethod: PaymentMethod
 )
 
 

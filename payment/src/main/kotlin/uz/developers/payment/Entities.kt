@@ -50,14 +50,13 @@ class Payment(
     @Schema(description = "Payment method used", example = "CREDIT_CARD")
     var paymentMethod: PaymentMethod,
 
-    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     @Schema(description = "Payment status", example = "SUCCESS")
-    var status: Status
+    var status: Status = Status.PENDING
 ) : BaseEntity() {
     constructor() : this(
         0,0,
         BigDecimal.ZERO, LocalDateTime.now(),
-        PaymentMethod.CREDIT_CARD, Status.SUCCESS
+        PaymentMethod.CREDIT_CARD, Status.PENDING
     )
 }

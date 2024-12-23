@@ -53,7 +53,7 @@ interface UserRepository : BaseRepository<User> {
     fun existsByUsernameAndDeletedFalse(username: String): Boolean
     fun existsByUsername(username: String): Boolean
     fun findByUsernameAndDeletedFalse(username: String): User?
-    fun findByUsernameAndStatusAndDeletedFalse(username: String, status: UserStatus): User?
+
 
     @Query(value = "select u from users u where u.id = :id")
     fun findUserById(@Param("id") id: Long): User?

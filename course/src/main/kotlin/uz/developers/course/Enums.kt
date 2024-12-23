@@ -47,10 +47,9 @@ enum class ErrorCodes(val code:Int) {
     INVALID_COURSE_PRICE(202),
     COURSE_ALREADY_PURCHASED(203),
 
-    FEIGN_ERROR(106),
+    FEIGN_ERROR(777),
     VALIDATION_ERROR(404),
 
-    // Custom errorlar
     ROLE_ACCESS_DENIED(600),
     INSUFFICIENT_BALANCE(111),
     DATA_NOT_FOUND(222),
